@@ -3,6 +3,7 @@ import { CssBaseline } from '@nextui-org/react';
 
 class MyDocument extends Document {
   
+  // In the ctx we have information about the request and response
   static async getInitialProps( ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx)
     return { 
@@ -15,6 +16,7 @@ class MyDocument extends Document {
     return (
       <Html lang="es">
         <Head>
+            {/* This is to make it compatible in different browsers */}
             { CssBaseline.flush() } 
         </Head>
         <body>

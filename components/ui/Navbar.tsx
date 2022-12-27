@@ -31,6 +31,7 @@ export const Navbar = () => {
                 </Link>
             </NextLink>
 
+            {/* flex: 1 said take all the posible spacd */}
             <Spacer css={{ flex: 1 }}/>
             
             <NextLink href="/favorites" passHref>

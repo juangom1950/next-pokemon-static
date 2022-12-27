@@ -19,6 +19,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
         <Layout title='Algun pokémon'>
            
            <Grid.Container css={{ marginTop: '5px' }} gap={ 2 }>
+              {/* xs very small screens it is going to take 12, which all the row */}
               <Grid xs={ 12 } sm={ 4 } >
                 <Card hoverable css={{ padding: '30px' }}>
                     <Card.Body>
@@ -93,21 +94,27 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
 
 // You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
-
+// These are the paths that I am telling next that is going to be able to receive.
+// This is only executed from the server side at build time
+// In development it is going to be executed everytime that we load the page
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
+  // Here I am creating an array with 151 elements
   const pokemons151 = [...Array(151)].map( ( value, index ) => `${ index + 1 }` );
 
   return {
     paths: pokemons151.map( id => ({
       params: { id }
     })),
+    // If the page doesn't exist it is going to return a 404 error
     fallback: false
   }
 }
 
 
-
+// The GetStaticPaths is going to be executed 1st then this function
+// We are going to be able to get that "prams" from the GetStaticPaths here in the ctx
+// We destructor the ctx here to get the "params"
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   const { id } = params as { id: string };

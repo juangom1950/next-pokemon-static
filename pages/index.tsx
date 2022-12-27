@@ -10,7 +10,7 @@ interface Props {
   pokemons: SmallPokemon[];
 }
 
-
+// This pokemons comes from the props of getStaticProps
 const HomePage: NextPage<Props> = ({ pokemons }) => {
 
   return (
@@ -28,7 +28,11 @@ const HomePage: NextPage<Props> = ({ pokemons }) => {
   )
 }
 
-
+// This function tells Next, call this function at build time
+// This is executed only at the Server Side
+// This function can only be used inside the pages not in the components
+// The only thing that is going to the client are the "props"
+// In development this page is called each time we call this page
 export const getStaticProps: GetStaticProps = async (ctx) => {
   
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');
@@ -41,6 +45,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
   return {
     props: {
+      //This is the same than pokemons: pokemons
       pokemons
     }
   }

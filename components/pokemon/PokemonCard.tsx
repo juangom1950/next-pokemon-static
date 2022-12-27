@@ -19,12 +19,16 @@ export const PokemonCard: FC<Props> = ({ pokemon }) => {
 
     
   return (
+    // The full with should be 12, so 6 is the half
+    // 1 = groups fo 12, 2 = groups of 6, 3 = groups of 4, 6 = groups of 6
+    // xs, sm, md, xl, are the size of the devices
     <Grid xs={ 6 } sm={ 3 } md={ 2 } xl={ 1 } key={ pokemon.id }>
         <Card 
             hoverable 
             clickable
             onClick={ onClick }
         >
+            {/* p is padding */}
             <Card.Body css={{ p: 1 }}>
                 <Card.Image 
                     src={ pokemon.img }
