@@ -7,6 +7,8 @@ interface Props {
     pokemons: number[];
 }
 
+// You could define the Props like this too.
+// export const FavoritePokemons: FC = ({ pokemons }: Props) => {
 export const FavoritePokemons: FC<Props> = ({ pokemons }) => {
   return (
 

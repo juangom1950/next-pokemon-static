@@ -9,6 +9,7 @@ const FavoritesPage = () => {
 
   const [favoritePokemons, setFavoritePokemons] = useState<number[]>([]);
 
+  // Here we get the pokemons from the client side
   useEffect(() => {
     setFavoritePokemons( localFavorites.pokemons() );
   }, []);

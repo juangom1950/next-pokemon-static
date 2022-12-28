@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 
 import { Container, Text, Image } from '@nextui-org/react';
 

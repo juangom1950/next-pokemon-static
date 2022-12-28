@@ -16,7 +16,7 @@ interface Props {
   pokemon: Pokemon;
 }
 
-
+// Este pokemon viene de destructure Props lo cual viene del GetStaticProps
 const PokemonByNamePage: NextPage<Props> = ({ pokemon }) => {
 
     const [isInFavorites, setIsInFavorites] = useState( localFavorites.existInFavorites( pokemon.id ) );
@@ -121,7 +121,8 @@ const PokemonByNamePage: NextPage<Props> = ({ pokemon }) => {
 
 
 // You should use getStaticPaths if you’re statically pre-rendering pages that use dynamic routes
-
+// Le va a decir a Next cuando esta en build time (yarn build), cuales son todos los argumentos 
+// dinamicos permitidos para poder entrar en esta pagina.
 export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
   const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');
@@ -132,12 +133,13 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
     paths: pokemonNames.map( name => ({
       params: { name }
     })),
+    // it is going to show a 404 if I send a name that doesn't exist
     fallback: false
   }
 }
 
 
-
+// Here we destructure the ctx to get the params
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   const { name } = params as { name: string };
@@ -148,9 +150,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     }
   }
 }
-
-
-
-
 
 export default PokemonByNamePage;

@@ -7,7 +7,9 @@ interface Props {
   title?: string;
 }
 
-
+// Here we get the specific url dinamically
+// if we are at he server it is going to be empty, if we are loccally it is 
+// going to give us the path
 const origin = (typeof window === 'undefined') ? '' : window.location.origin;
 
 

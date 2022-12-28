@@ -8,18 +8,19 @@ interface Props {
     pokemonId: number;
 }
 
-
+// You could define the Props like this too.
+// export const FavoritePokemon: FC = ({ pokemonId }: Props) => {
 export const FavoriteCardPokemon:FC<Props> = ({ pokemonId }) => {
 
   const router = useRouter();
-
 
   const onFavoriteClicked = () => {
     router.push(`/pokemon/${ pokemonId }`);
   }
 
-
   return (
+    // Full long would be 12 columns
+    // xs = 2 columns, sm = 4 columns, md = 6 column, xl = 12 columns
     <Grid xs={ 6 } sm={ 3 } md={ 2 } xl={ 1 } key={ pokemonId } onClick={ onFavoriteClicked }>
         <Card hoverable clickable css={{ padding: 10 }}>
         <Card.Image 

@@ -1,11 +1,13 @@
 import { useState } from 'react';
 
+// Codigo de next
 import { GetStaticProps, NextPage, GetStaticPaths } from 'next';
 import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
 
+//Codigo de 3eros
 import confetti from 'canvas-confetti';
 
-
+// Codigo nuestro
 import { pokeApi } from '../../api';
 import { Layout } from '../../components/layouts';
 import { Pokemon } from '../../interfaces';
@@ -26,10 +28,14 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
     // console.log(pokemon);
     const onToggleFavorite = () => {
       localFavorites.toggleFavorite( pokemon.id );
+      // I am telling react that I did a change in isInFavorites.
       setIsInFavorites( !isInFavorites );
 
       if ( isInFavorites ) return;
-        
+      
+      // We could put this inside or do it with the if statement above
+      // if ( !isInFavorites )
+
       confetti({
         zIndex: 999,
         particleCount: 100,
@@ -132,6 +138,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
     paths: pokemons151.map( id => ({
       params: { id }
     })),
+    // This will give 404 error if the id doesn't exist
+    // The other options would be "blocking" which will let you go to the Functional Component.
     fallback: false
   }
 }
