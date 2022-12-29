@@ -134,7 +134,9 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
       params: { name }
     })),
     // it is going to show a 404 if I send a name that doesn't exist
-    fallback: false
+    // fallback: false,
+    
+    fallback: 'blocking'
   }
 }
 
@@ -144,10 +146,24 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   const { name } = params as { name: string };
 
+  const pokemon = await getPokemonInfo( name );
+
+  if ( !pokemon ) {
+    return {
+      redirect: {
+        destination: '/',
+        // this say that this is a permanent redirect, which help the google boots
+        // because it is going to be deleted from the index. It doesn't exist anymore
+        permanent: false
+      }
+    }
+  }
+
   return {
     props: {
-      pokemon: await getPokemonInfo( name )
-    }
+      pokemon
+    },
+    revalidate: 86400,
   }
 }
 

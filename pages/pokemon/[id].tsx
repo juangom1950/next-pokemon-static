@@ -140,25 +140,37 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
     })),
     // This will give 404 error if the id doesn't exist
     // The other options would be "blocking" which will let you go to the Functional Component.
-    fallback: false
+    //fallback: false
+    // It is going to look if the addicional pockemon exist
+    fallback: 'blocking'
   }
 }
-
-
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   const { id } = params as { id: string };
 
-  return {
-    props: {
-      pokemon: await getPokemonInfo( id )
+  const pokemon = await getPokemonInfo(id);
+
+  if ( !pokemon ) {
+    return {
+      redirect: {
+        destination: '/',
+        // this say that this is a permanent redirect, which help the google boots
+        // because it is going to be deleted from the index. It doesn't exist anymore
+        permanent: false
+      }
     }
   }
+
+  return {
+    props: {
+      pokemon
+    },
+    // Next is going to try to revalidate the page every 86400 sec.
+    // This is everyday
+    revalidate: 86400,   //60 * 60 * 24
+  }
 }
-
-
-
-
 
 export default PokemonPage;
